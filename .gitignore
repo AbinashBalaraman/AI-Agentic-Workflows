@@ -19,3 +19,10 @@ ENV/
 # IDE files
 .vscode/
 .idea/
+
+# API Keys & Secrets
+*.json
+.env
+.venv
+# VS Code temp
+*tempCodeRunnerFile*

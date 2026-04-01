@@ -10,7 +10,7 @@ This repository demonstrates the practical application of Large Language Models 
 
 This workspace is divided into specific agent modules, each demonstrating distinct autonomous behaviors and API integrations.
 
-*   `Langchain_google_calender/` and `Calendar_event/`
+*   `Langchain_google_calender/`
     *   **Functionality:** Interfaces securely with the Google Calendar API.
     *   **Capabilities:** Allows an LLM agent to fetch upcoming events, clear schedules, and dynamically book new appointments based on natural language prompts.
 *   `ClaudeClient/`
@@ -19,6 +19,12 @@ This workspace is divided into specific agent modules, each demonstrating distin
 *   `multi_tool_agent/`
     *   **Functionality:** An advanced LangChain agent configured with a dynamic tool-routing system.
     *   **Capabilities:** Demonstrates the LLM's ability to evaluate a complex prompt, select the appropriate external tools from a provided list, and execute those tools in sequence to reach a verified conclusion.
+*   `YahooFinance_LLM_Agents/`
+    *   **Functionality:** LangChain agents orchestrating `yfinance` market scraping strategies.
+    *   **Capabilities:** Demonstrates LLM-assisted analysis of dynamically fetched corporate financials, earnings calendars, and historical market data using multi-tool function calling.
+*   `GoogleFinance/`
+    *   **Functionality:** React agents interacting with Google Finance search engines.
+    *   **Capabilities:** Leverages `GoogleFinanceQueryRun` tools to compare asset performance logic autonomously.
 
 ## Technology Stack
 
