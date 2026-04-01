@@ -1,0 +1,13 @@
+[project]
+name = "googleadk"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv.workspace]
+members = [
+    "ADK_Multi_Agent",
+    "ADK_Multi_Agent/Redis",
+]

@@ -1,0 +1,232 @@
+{
+  "eval_set_id": "evalset85c6b5",
+  "name": "evalset85c6b5",
+  "description": null,
+  "eval_cases": [
+    {
+      "eval_id": "case51660a",
+      "conversation": [
+        {
+          "invocation_id": "e-ac900e37-880d-412d-98ef-5589d7b91adc",
+          "user_content": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "search for news about sbi"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "I do not have the capability to search for news. I will transfer you to an agent that may be able to help.\n"
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "adk-680ebba9-9921-490d-a683-b831f42acefc",
+                "args": {
+                  "agent_name": "Redis_agent"
+                },
+                "name": "transfer_to_agent"
+              }
+            ],
+            "intermediate_responses": []
+          },
+          "creation_timestamp": 1753091941.446679
+        }
+      ],
+      "session_input": {
+        "app_name": "ADK_Multi_Agent",
+        "user_id": "user",
+        "state": {
+          "calender_response": ""
+        }
+      },
+      "creation_timestamp": 1753091953.534115
+    },
+    {
+      "eval_id": "case805db1",
+      "conversation": [
+        {
+          "invocation_id": "e-06e9765a-f136-413f-9940-4fcafc86cd17",
+          "user_content": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "show data in meet key on redis"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "OK. I have retrieved the data stored under the key \"meet\" in Redis. Here's a summary:\n\n**Event Details**\n*   **Time:** 5pm to 6pm\n*   **Subject:** Discussing about Google\n\n**Google Stock News**\n\nHere is a list of the top news headlines related to Google stocks:\n\n1.  **Title:** Only one Mag 7 name is investable, this money manager says\n2.  **Title:** Alphabet earnings, Cleveland-Cliffs surges, CSX upgraded\n3.  **Title:** Alphabet earnings checklist: 3 things to watch for\n4.  **Title:** Alphabet (GOOGL) To Report Earnings Tomorrow: Here Is What To Expect\n5.  **Title:** Nvidia Stock Slips. Reasons to Believe the AI Trend Will Keep Going.\n6.  **Title:** The Stock Market’s Momentum Is Stalling With Mag 7 Earnings on Deck\n7.  **Title:** Microsoft Rushes to Stop Hackers from Wreaking Global Havoc\n8.  **Title:** Nasdaq, S&P 500 Hit Fresh Record Highs as Focus Shifts to Upcoming Earnings\n9.  **Title:** S&P 500, Nasdaq Extend Rallies to Records Before Major Earnings\n10. **Title:** US Equity Markets Higher as Nasdaq, S&P 500 Reach New All-Time Highs Amid Gains in Major Tech Stocks\n"
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "adk-db17a3a1-873d-4fc8-b5c7-fe5b09064b8b",
+                "args": {
+                  "request": "show data in meet key on redis"
+                },
+                "name": "Redis_agent"
+              }
+            ],
+            "intermediate_responses": []
+          },
+          "creation_timestamp": 1753183019.666415
+        },
+        {
+          "invocation_id": "e-c5778076-5b3d-4087-ac2e-677f87d7f02e",
+          "user_content": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "show full news"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "My apologies, it seems I was unable to retrieve the full news content using the \"meet\" key directly. The previous response only provided the titles.\n\nTo get the full news content, I need to clarify how the news data is structured under the \"meet\" key in Redis.\n\nCould you please tell me how the news content is stored? For example:\n\n*   Is each news article stored under a separate sub-key within \"meet\"?\n*   Is there a specific field or attribute within the \"meet\" data that contains the full news content?\n\nAlternatively, if you have any other information about how the news data is organized, please provide it so I can construct the correct query.\n"
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "adk-b3f117df-4986-40fc-91ed-1c090eb20b6e",
+                "args": {
+                  "request": "show full news in meet key on redis"
+                },
+                "name": "Redis_agent"
+              }
+            ],
+            "intermediate_responses": []
+          },
+          "creation_timestamp": 1753183067.369881
+        },
+        {
+          "invocation_id": "e-fc182376-a8ad-4327-8dbc-2b900d5d0576",
+          "user_content": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "i think all under key meet"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "video_metadata": null,
+                "thought": null,
+                "inline_data": null,
+                "file_data": null,
+                "thought_signature": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "function_call": null,
+                "function_response": null,
+                "text": "OK, I have retrieved all the data under the \"meet\" key in Redis. Here's the information:\n\n**Event Details**\n\n*   **Time:** 5pm to 6pm\n*   **Subject:** Discussing about Google\n\n**Google Stock News**\n\n1.  **Title:** Only one Mag 7 name is investable, this money manager says\n    *   **Content:** Tesla (TSLA) and Alphabet (GOOG, GOOGL) will kick off \"Magnificent Seven\" earnings on Wednesday.\n2.  **Title:** Alphabet earnings, Cleveland-Cliffs surges, CSX upgraded\n    *   **Content:** Alphabet (GOOG, GOOGL) stock climbs ahead of the Google parent company's earnings report on Wednesday.\n3.  **Title:** Alphabet earnings checklist: 3 things to watch for\n    *   **Content:** Baird investment strategist Ross Mayfield, Yahoo Finance Senior Reporter Allie Canal, and IG North America Interim CEO Pete Mulmat join Opening Bid host Brian Sozzi to discuss Alphabet (GOOG, GOOGL) ahead of the company’s earnings release on Wednesday.\n4.  **Title:** Alphabet (GOOGL) To Report Earnings Tomorrow: Here Is What To Expect\n    *   **Content:** Online advertising giant Alphabet (NASDAQ:GOOGL) will be reporting earnings tomorrow after market hours. Here’s what to look for.\n5.  **Title:** Nvidia Stock Slips. Reasons to Believe the AI Trend Will Keep Going.\n    *   **Content:** Nvidia stock is falling ahead of earnings reports from technology companies but there’s reason to be confident in artificial-intelligence spending.\n6.  **Title:** The Stock Market’s Momentum Is Stalling With Mag 7 Earnings on Deck\n    *   **Content:** Earnings from Tesla and Alphabet are expected after the close of trading on Wednesday.\n7.  **Title:** Microsoft Rushes to Stop Hackers from Wreaking Global Havoc\n8.  **Title:** Nasdaq, S&P 500 Hit Fresh Record Highs as Focus Shifts to Upcoming Earnings\n9.  **Title:** S&P 500, Nasdaq Extend Rallies to Records Before Major Earnings\n10. **Title:** US Equity Markets Higher as Nasdaq, S&P 500 Reach New All-Time Highs Amid Gains in Major Tech Stocks\n\nPlease note that some news items only have titles and lack detailed content.\n"
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "id": "adk-f9fe892a-d8e7-4169-98cf-8f04a9a7fa2b",
+                "args": {
+                  "request": "show all data in meet key on redis"
+                },
+                "name": "Redis_agent"
+              }
+            ],
+            "intermediate_responses": []
+          },
+          "creation_timestamp": 1753183110.028207
+        }
+      ],
+      "session_input": {
+        "app_name": "ADK_Multi_Agent",
+        "user_id": "user",
+        "state": {}
+      },
+      "creation_timestamp": 1753184846.9010549
+    }
+  ],
+  "creation_timestamp": 1752489417.5776074
+}

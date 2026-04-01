@@ -1,0 +1,9 @@
+{
+  "name": "Calendar Agent",
+  "description": "Agent that manages calendar events using Office365",
+  "url": "http://192.168.0.217:5004/a2a/",
+  "version": "1.0.0",
+  "author": "Your Name or Organization",
+  "icons": [],
+  "skills": []
+}
