@@ -1,46 +1,65 @@
 # AI-Agentic-Workflows
 
-A comprehensive suite of autonomous AI agents built using LangChain, designed to interact with external APIs, execute multi-tool sequencing, and orchestrate complex autonomous tasks.
+A collection of autonomous AI agent systems built using Google ADK, LangChain, and LangGraph. Each module demonstrates a distinct pattern of multi-agent orchestration, tool integration, or external API automation across productivity, financial data, and database management domains.
 
 ## Overview
 
-This repository demonstrates the practical application of Large Language Models (LLMs) via the LangChain framework. The included agents are designed to execute complex, multi-step operations autonomously by securely interacting with third-party systems such as Google Calendar, the Anthropic Claude API, and other integrated endpoints. The core objective of these implementations is to move beyond simple LLM chattiness toward deterministic, action-oriented agentic workflows.
+This repository moves beyond basic LLM chat interfaces toward production-grade agentic systems. Projects here implement agent-to-agent delegation, live tool calling against external APIs (Microsoft 365, Yahoo Finance, Google Finance, Redis, MongoDB), and multi-model orchestration across Gemini 2.0 Flash and GPT-4o. The common engineering thread is that every module requires the LLM to plan, validate, and execute multi-step operations autonomously without hardcoded logic paths.
 
-## Core Implementations
+## Modules
 
-This workspace is divided into specific agent modules, each demonstrating distinct autonomous behaviors and API integrations.
+### `multi_tool_agent/`
 
-*   `Langchain_google_calender/`
-    *   **Functionality:** Interfaces securely with the Google Calendar API.
-    *   **Capabilities:** Allows an LLM agent to fetch upcoming events, clear schedules, and dynamically book new appointments based on natural language prompts.
-*   `ClaudeClient/`
-    *   **Functionality:** A wrapper designed for seamless interaction with the Anthropic Claude API.
-    *   **Capabilities:** Provides an environment for integrating Claude's reasoning capabilities into broader autonomous scripts.
-*   `multi_tool_agent/`
-    *   **Functionality:** An advanced LangChain agent configured with a dynamic tool-routing system.
-    *   **Capabilities:** Demonstrates the LLM's ability to evaluate a complex prompt, select the appropriate external tools from a provided list, and execute those tools in sequence to reach a verified conclusion.
-*   `YahooFinance_LLM_Agents/`
-    *   **Functionality:** LangChain agents orchestrating `yfinance` market scraping strategies.
-    *   **Capabilities:** Demonstrates LLM-assisted analysis of dynamically fetched corporate financials, earnings calendars, and historical market data using multi-tool function calling.
-*   `GoogleFinance/`
-    *   **Functionality:** React agents interacting with Google Finance search engines.
-    *   **Capabilities:** Leverages `GoogleFinanceQueryRun` tools to compare asset performance logic autonomously.
+This directory contains two generations of multi-tool agent implementations, both built on Google's Agent Development Kit (ADK).
+
+**`multi_tool_agent/agent.py`** — A minimal ADK starter agent using `gemini-2.0-flash` with `get_weather` and `get_current_time` tools. Demonstrates the core ADK `Agent` class and tool registration pattern.
+
+**`multi_tool_agent/ADK_Multi_Agent/`** — The flagship production implementation. A hierarchical multi-agent orchestration system where a central `MasterAgent` delegates tasks to three specialized sub-agents in real time.
+
+*   **MasterAgent** (`gemini-2.0-flash`): The central coordinator. Receives the user request, determines which sub-agent(s) are needed, confirms the operation plan, and provides detailed step-by-step reporting throughout execution.
+*   **Redis\_agent** (`gpt-4o`): A database management agent that connects to both Redis (hosted on AWS EC2 via Redis Cloud) and a local MongoDB instance through the Model Context Protocol. Handles SET, GET, and DEL operations on Redis keys alongside full MongoDB CRUD. Enforces strict data validation before any database write.
+*   **calander\_Agent** (`gemini-2.0-flash`): A Microsoft 365 automation agent. Wraps the full `O365Toolkit` via LangChain and exposes calendar blocking, event search, mail search, draft creation, event invitations, and outbound message sending. Handles IST-to-UTC timezone conversion automatically. Authenticated via a persistent O365 OAuth2 token file.
+*   **yfinance\_agent** (`gpt-4o`): A financial data retrieval agent. Exposes `fetch_stock_attribute` and `search_stock` as tools, allowing the LLM to query any `yfinance.Ticker` attribute by name — including `financials`, `recommendations`, `earnings_dates`, `options`, `news`, and more.
+
+### `YahooFinance_LLM_Agents/`
+
+A standalone LangGraph ReAct agent for interactive stock market research. Uses `gpt-4.1-mini` via OpenAI as the reasoning model and exposes 20+ discrete `yfinance` tool functions covering every major ticker attribute: balance sheets, cashflow statements, quarterly financials, analyst price targets, institutional holders, ISIN, options, and live news. Maintains a persistent `chat_history` list across turns for conversational continuity. Includes a `test_yfinance.py` for validating individual tool outputs.
+
+### `GoogleFinance/`
+
+A LangGraph ReAct agent using `gemini-2.0-flash` as the reasoning model. Integrates `GoogleFinanceQueryRun` (via SerpAPI) and `google-scholar` tools from the LangChain community toolkit to perform comparative stock analysis against Google Finance data. Demonstrates how to wrap community tools into a ReAct agent with streaming output.
+
+### `Langchain_google_calender/`
+
+A standalone, conversational LangGraph ReAct agent for Microsoft 365 calendar operations. Uses `gemini-2.5-flash` as the reasoning model with the full `O365Toolkit`. Maintains a running `conversation_history` list to support follow-up queries and corrections within a session. Manages IST-to-UTC time offsetting in the system prompt. This module is the standalone prototype from which the ADK `calander_Agent` was later derived.
+
+### `ClaudeClient/`
+
+A FastMCP server (stdio transport) exposing MongoDB CRUD operations and Tavily web search as MCP tools. Uses `pymongo` to connect to a local MongoDB instance (`car` database, `car_data` collection). Tools include `collection_operations` (supporting `find`, `insert`, `update`, `delete`, `count`, `distinct`), `tavily` (Tavily REST API search), and a resource endpoint exposing application runtime status. This server is the MCP backend consumed by the `Redis_agent` in `ADK_Multi_Agent`.
 
 ## Technology Stack
 
 *   **Language:** Python 3.10+
-*   **Orchestration:** LangChain
-*   **LLM Providers:** Anthropic (Claude REST API), Google (Gemini / Vertex AI implementations depending on module)
-*   **External APIs:** Google Calendar API (OAuth 2.0 / Service Accounts)
-*   **Libraries:** `google-api-python-client`, `anthropic`, `python-dotenv`
+*   **Agent Frameworks:** Google ADK (`google-adk`), LangGraph, LangChain
+*   **LLM Providers:** Google Gemini 2.0 Flash / 2.5 Flash, OpenAI GPT-4o / GPT-4.1-mini
+*   **External APIs:** Microsoft 365 (O365 OAuth2), Yahoo Finance (`yfinance`), Google Finance (SerpAPI), Tavily Search
+*   **Databases:** MongoDB (`pymongo`, local), Redis (Redis Cloud on AWS EC2)
+*   **Protocols:** Model Context Protocol (FastMCP, stdio transport)
+*   **Libraries:** `langchain-community`, `langgraph`, `O365`, `python-dotenv`, `google-genai`, `mcp`
 
 ## Prerequisites
 
-To run these modules locally, ensure you have the following configured in your environment:
-
-1.  Python 3.10 or higher installed.
-2.  A valid Anthropic API Key (`ANTHROPIC_API_KEY`).
-3.  Active Google Cloud Platform (GCP) Credentials (`credentials.json` / `token.json` generated via GCP service accounts or OAuth tokens) with access to the Calendar API.
+1.  Python 3.10 or higher.
+2.  A `.env` file in each module root containing the relevant keys:
+    ```env
+    GOOGLE_API_KEY="..."
+    OPENAI_API_KEY="..."
+    SERP_API_KEY="..."
+    ANTHROPIC_API_KEY="..."
+    ```
+3.  A valid Microsoft 365 account with an `o365_token.txt` OAuth token generated via `account.authenticate()` on first run.
+4.  A running local MongoDB instance (for `ClaudeClient` and `MongodbMCP` interactions).
+5.  Redis Cloud credentials configured in the `ADK_Multi_Agent/Redis/agent.py` environment block.
 
 ## Setup and Installation
 
@@ -50,37 +69,45 @@ To run these modules locally, ensure you have the following configured in your e
     cd AI-Agentic-Workflows
     ```
 
-2.  Initialize and activate a virtual environment (recommended):
+2.  Initialize a virtual environment:
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
     ```
 
-3.  Install dependencies:
+3.  Install dependencies for the target module (each module has its own `pyproject.toml` or `requirements.txt`):
     ```bash
-    pip install -r requirements.txt
+    pip install -r multi_tool_agent/requirement.txt
     ```
-    *(Note: If a global `requirements.txt` is not provided, refer to the individual module directories for specific dependencies).*
 
-4.  Environment Configuration:
-    Create a `.env` file in the root of the targeted module and populate it with your required keys:
-    ```env
-    ANTHROPIC_API_KEY="your_anthropic_key_here"
-    GOOGLE_APPLICATION_CREDENTIALS="path/to/your/gcp/credentials.json"
-    ```
+4.  Configure environment variables in a `.env` file at the module root.
 
 ## Usage
 
-Navigate to the respective module directory to execute the agent scripts. For example, to run the multi-tool agent:
+To run the ADK multi-agent system:
 
 ```bash
 cd multi_tool_agent
+adk web
+```
+
+To run the standalone Yahoo Finance LangGraph agent:
+
+```bash
+cd YahooFinance_LLM_Agents
 python main.py
 ```
 
-## Contributing
+To run the Microsoft 365 calendar agent directly:
 
-This repository serves as a portfolio showcase of autonomous agent engineering. While it is not actively seeking open-source contributions, you may open an issue if you encounter configuration bugs or security discrepancies.
+```bash
+cd Langchain_google_calender
+python main.py
+```
+
+## Security
+
+All credential files (`credentials.json`, `token.json`, `o365_token.txt`) and environment variable files (`.env`) are excluded from version control via `.gitignore`. Never commit OAuth tokens or API keys to the repository.
 
 ## License
 

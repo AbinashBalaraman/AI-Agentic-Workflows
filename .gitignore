@@ -26,3 +26,8 @@ ENV/
 .venv
 # VS Code temp
 *tempCodeRunnerFile*
+
+# Token and auth files
+o365_tokeno.txt
+*.evalset.json
+uv.lock
