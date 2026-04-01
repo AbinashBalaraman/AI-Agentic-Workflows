@@ -1,7 +1,10 @@
+import os
 from mcp.server.fastmcp import FastMCP
 from pymongo import MongoClient
 import requests
 from pymongo.errors import InvalidOperation
+from dotenv import load_dotenv
+load_dotenv()
 # from bson import json_util
 # ...existing code...
 # ...existing code...
@@ -136,7 +139,7 @@ def tavily(params: dict):
     url = "https://api.tavily.com/search"  
     
     headers = {
-        "Authorization": "Bearer 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",
+        "Authorization": f"Bearer {os.getenv('TAVILY_API_KEY', '')}",
         "Content-Type": "application/json"
     }
     

@@ -1,3 +1,4 @@
+import os
 from google.adk.agents import Agent
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.tools.mcp_tool.mcp_toolset import MCPToolset, StdioServerParameters
@@ -6,24 +7,24 @@ load_dotenv()
 
 Redis=MCPToolset(
         connection_params=StdioServerParameters(
-        command="C:/Users/abhinash/.local/bin/uv.EXE",
+        command=os.getenv("UV_PATH", "uv"),
         args= [
        "--directory",
-        "C:/Users/abhinash/Documents/Internship/Redis_MCP/mcp-redis",
+        os.getenv("REDIS_MCP_DIR", "path/to/mcp-redis"),
         "run",
         "src/main.py"
         
       ],env= {
-        "REDIS_HOST": "redis-18579.crce179.ap-south-1-1.ec2.redns.redis-cloud.com",
-        "REDIS_PORT": "18579",
-        "REDIS_USERNAME": "default",
-        "REDIS_PWD": "aUQDI3IIO0XWLYrqgckoHhf1E9jV5KhN"
+        "REDIS_HOST": os.getenv("REDIS_HOST", ""),
+        "REDIS_PORT": os.getenv("REDIS_PORT", ""),
+        "REDIS_USERNAME": os.getenv("REDIS_USERNAME", "default"),
+        "REDIS_PWD": os.getenv("REDIS_PWD", "")
       }))
 Mongo=MCPToolset(
     connection_params=StdioServerParameters(
       command= "python",
       args=[
-        "C:\\Users\\abhinash\\Documents\\Internship\\ClaudeClient\\main.py"
+        os.getenv("MONGO_MCP_PATH", "path/to/ClaudeClient/main.py")
       ]
     
         
